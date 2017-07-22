@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vue Todo Application</title>
+    <link rel="stylesheet" href="/src/app.css">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://unpkg.com/vue"></script>
+  </head>
+  <body>
+
+    <div id="app">
+      <div class="container">
+        <div class="row justify-content-md-center">
+          <div class="col col-md-6">
+            <div class="card">
+              <div class="card-header">
+                todo application
+              </div>
+              <form class="card-block m-0" @submit.prevent="addTodo(todo)">
+                <div class="input-group">
+                  <input type="text" class="form-control" placeholder="add todo" v-model="todo">
+                  <span class="input-group-btn">
+                    <button type="submit" name="button" class="btn btn-primary" :disabled="!todoIsValid">add</button>
+                  </span>
+                </div>
+              </form>
+
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item" v-for="todo in todos" class="d-block">
+
+                  <div v-if="!todo.isEdited">
+
+
+                    <label class="form-check-label">
+                      <input type="checkbox" class="form-check-input" v-model="todo.finished">
+                      <span :class="{'finished': todo.finished}">{{todo.content}}</span>
+                    </label>
+                    <div class="ml-auto btn-group">
+                      <button type="button" class="btn btn-sm btn-primary" @click="edit(todo)" v-if="!beingEdited">
+                        <i class="fa fa-pencil"></i>
+                      </button>
+                      <button type="button" class="btn btn-sm btn-danger" @click="deleteTodo(todo)">
+                        <i class="fa fa-trash"></i>
+                      </button>
+                    </div>
+
+                  </div>
+
+                  <form v-else @submit.prevent="update(todo)">
+                    <div class="input-group">
+                      <input type="text" class="form-control form-control-sm" placeholder="edit" v-model="editTodo">
+                      <span class="input-group-btn">
+                        <button type="submit" class="btn btn-sm btn-primary" :disabled="!editTodoIsValid">
+                          <i class="fa fa-save"></i>
+                        </button>
+
+                      </span>
+                      <span class="input-group-btn">
+                        <button type="button" class="btn btn-sm btn-danger" @click="deleteTodo(todo)">
+                          <i class="fa fa-trash"></i>
+                        </button>
+                      </span>
+                    </div>
+                  </form>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="http://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+    <script src="src/app.js?3"></script>
+  </body>
+</html>
